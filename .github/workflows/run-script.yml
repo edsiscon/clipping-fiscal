@@ -1,9 +1,9 @@
 name: Run Script Automatically
 
 on:
+  workflow_dispatch:   # permite rodar manualmente
   schedule:
-    - cron: '0 11 * * *'  # todo dia às 08h no Brasil (UTC-3 → 11h UTC)
-  workflow_dispatch:  # permite rodar manualmente
+    - cron: '0 11 * * *'  # Todo dia às 08h no Brasil (UTC-3 → 11h UTC)
 
 jobs:
   run-script:
@@ -20,8 +20,8 @@ jobs:
 
       - name: Instalar dependências
         run: |
-          pip install -r requirements.txt
+          pip install requests bs4 pandas
 
-      - name: Rodar script
+      - name: Rodar script e mostrar logs
         run: |
-          python script.py
+          python script.py 2>&1 | tee output.log
